@@ -11,3 +11,9 @@ QtSvg 模块提供类用于显示SVG文件内容。Scalable Vector Graphics (SVG
 QtSql模块提供类驱动数据库工作。 QtTest 模块包含了方法提供PyQt5应用的单元测试
 
 
+
+PyQt5不向后兼容PyQt4的;这是一些在PyQt5中的重要改变然而，将旧代码迁移到新的版本中并不是非常困难不同点如下：
+1.Python 模块已经被改写. 一些模块被舍弃 (QtScript), 部分的模块被分割成子模块 (QtGui, QtWebKit).
+2.新的模块被引进, 包含 QtBluetooth, QtPositioning, 和 Enginio.
+3.PyQt5 只支持最新风格的信号和槽的写法. SIGNAL()和SLOT()的调用将不会被长时间支持.
+4.PyQt5 不支持任何在Qt 5.0版本中弃用或取消的API.
