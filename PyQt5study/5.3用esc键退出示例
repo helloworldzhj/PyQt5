@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+"""用esc键退出示例"""
+
+import sys
+from PyQt5 import QtWidgets,QtCore
+
+class Escape(QtWidgets.QWidget):
+	def __init__(self):
+		super(Escape,self).__init__()
+		
+		self.setWindowTitle("用esc键退出示例")
+		self.resize(250,150)
+		
+	def keyPressEvent(self,event):
+		if event.key()==QtCore.QT.Key_Escape:
+			self.close()
+	#keypressevent事件处理方法
+			
+app = QtWidgets.QApplication(sys.argv)
+escape = Escape()
+escape.show()
+sys.exit(app.exec_())
+#当我们按下esc键，程序就会结束。
+
+
+
+
+
+
+
+
+

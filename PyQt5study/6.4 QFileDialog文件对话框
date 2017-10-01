@@ -1,0 +1,48 @@
+# -*- coding: utf-8 -*-
+""" 文件对话框示例 """
+import sys
+from PyQt5 import QtWidgets,QtCore,QtGui
+
+#在程序中显示了菜单栏 状态栏 和一个文本编辑器
+
+				
+class OpenFileDialog(QtWidgets.QMainWindow):
+	def __init__(self):
+		super(OpenFileDialog,self).__init__()
+				
+		self.setWindowTitle("文件对话框演示程序")
+		self.setGeometry(300,300,400,300)		
+		
+		self.text_edit = QtWidgets.QTextEdit()
+		self.setCentralWidget(self.text_edit)
+		#示例程序基于QMainWindow窗口部件的，因为我们需要将文本编辑器设置为中心部件
+		
+		self.statusBar()
+		self.setFocus()
+		
+		self.file_item = QtWidgets.QAction(QtGui.QIcon(r"gear_08.png"),"打开",self)
+		self.file_item.setShortcut("Ctrl+0")
+		self.file_item.setStatusTip("打开新文件")
+		self.file_item.triggered.connect(self.show_dialog)
+		
+		self.file = self.menuBar().addMenu("文件")
+		self.file.addAction(self.file_item)
+		
+	def show_dialog(self):
+			file_name = QtWidgets.QFileDialog.getOpenFileName(self,'打开文件',r"C:\Users\Administrator\Desktop\test/")
+			#该语句弹出文件对话框
+			try:
+				file = open(file_name[0],"r")
+				data = file.read()
+			except UnicodeDecodeError:
+				data = "不合法的txt文件"
+			except FileNotFoundError:
+				data = ""
+			self.text_edit.setText(data)
+			#将读取被选择的文件并将其显示在文本编辑器中
+		
+	
+app = QtWidgets.QApplication(sys.argv)
+file_d = OpenFileDialog()
+file_d.show()
+sys.exit(app.exec_())

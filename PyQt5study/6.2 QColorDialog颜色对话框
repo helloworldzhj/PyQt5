@@ -1,0 +1,49 @@
+# -*- coding: utf-8 -*-
+"""颜色对话框演示程序"""
+import sys
+from PyQt5 import QtWidgets,QtCore,QtGui
+
+				
+class ColorDialog(QtWidgets.QWidget):
+	def __init__(self):
+		super(ColorDialog,self).__init__()
+				
+		self.setWindowTitle("颜色对话框演示程序")
+		self.setGeometry(300,300,250,180)		
+				
+		self.button = QtWidgets.QPushButton("更改颜色",self)
+		self.button.setFocusPolicy(QtCore.Qt.NoFocus)
+		#把按钮的焦点策略设定为nofocus，关于焦点简单介绍一下，在应用程序中都会有一个当前窗口，即当前获得焦点时间的窗口，这个窗口可以接受键盘的输入。
+		self.button.move(20,20)
+		
+		self.button.clicked.connect(self.show_dialog)
+		self.setFocus()
+		#将当前窗口设置为焦点窗口，即设为选中状态
+		
+		color = QtGui.QColor(0,0,0)
+		#用一个颜色存储一种颜色，这里用rgb颜色（0，0，0）代表黑色
+		self.widget = QtWidgets.QWidget(self)
+		self.widget.setStyleSheet("QWidget{background-color:%s}"% color.name())
+		#setStyleSheet方法用来设置图形界面的外观这里是将刚刚创建的widget不见得颜色设置为color存储的颜色也就是黑色，在下文中颜色当ok时就又改变了
+		self.widget.setGeometry(130,22,100,100)
+		
+	def show_dialog(self):
+		col = QtWidgets.QColorDialog.getColor()
+		#这一行语句用来弹出颜色对话框
+		if col.isValid():
+			self.widget.setStyleSheet("QWidget{background-color:%s}"% col.name())
+		#以上语句用来检测颜色是否可用如果用户单击取消按钮则对话框不返回任何可用的颜色。如果颜色可用，我们就使用stylesheets设置widget部件的背景色
+		
+app = QtWidgets.QApplication(sys.argv)
+colordialog = ColorDialog()
+colordialog.show()
+sys.exit(app.exec_())
+		
+		
+		
+		
+		
+		
+		
+		
+		

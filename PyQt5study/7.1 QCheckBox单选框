@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+"""单选框示例"""
+import sys
+from PyQt5 import QtWidgets, QtCore
+
+class CheckBox(QtWidgets.QWidget):
+	def __init__(self):
+		super(CheckBox,self).__init__()
+		

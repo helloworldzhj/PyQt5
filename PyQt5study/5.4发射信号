@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+"""发射信号示例"""
+
+import sys
+from PyQt5 import QtWidgets,QtCore
+
+class EmitSignal(QtWidgets.QWidget):
+	closeEmitApp = QtCore.pyqtSignal()
+	#我们常见一个叫做closeEmitApp（）的新信号。在鼠标按下时产生。
+	
+	def __init__(self):
+		super(EmitSignal,self).__init__()
+		
+		self.setWindowTitle("发射信号演示程序")
+		self.resize(250,150)
+
+		self.closeEmitApp.connect(self.close)
+		#吧自定义的信号closeEmitApp()与槽函数close()连接起来
+	
+	def mousePressEvent(self,QMouseEvent):
+		self.closeEmitApp.emit()
+	#通过信号变量的emit()方法来发射一个信号
+		
+app = QtWidgets.QApplication(sys.argv)
+es = EmitSignal()
+es.show()
+sys.exit(app.exec_())
